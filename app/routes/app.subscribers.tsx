@@ -27,13 +27,13 @@ import {
   Modal,
   Spinner,
   Icon,
+  useBreakpoints,
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
-import { ExportIcon, SearchIcon, DeleteIcon } from "@shopify/polaris-icons";
+import { ExportIcon, SearchIcon } from "@shopify/polaris-icons";
 
 import { authenticate } from "../shopify.server";
 import {
-  getSubscribersByShop,
   getShopByDomain,
   exportSubscribersCSV,
   prisma,
@@ -265,7 +265,6 @@ export default function Subscribers() {
     subscribers,
     stats,
     isPremium,
-    shopId,
     pagination,
     searchQuery: initialSearch,
   } = useLoaderData<typeof loader>();
@@ -275,6 +274,7 @@ export default function Subscribers() {
   const navigation = useNavigation();
   const shopify = useAppBridge();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { smDown } = useBreakpoints();
 
   // State
   const [searchValue, setSearchValue] = useState(initialSearch);
@@ -295,7 +295,7 @@ export default function Subscribers() {
     plural: "subscribers",
   };
 
-  const { selectedResources, allResourcesSelected, handleSelectionChange } =
+  const { selectedResources, allResourcesSelected, handleSelectionChange, clearSelection } =
     useIndexResourceState(subscribers);
 
   // Handle search
@@ -370,9 +370,9 @@ export default function Subscribers() {
     submit(formData, { method: "post" });
 
     setBulkDeleteModalOpen(false);
-    handleSelectionChange("page", false);
+    clearSelection();
     shopify.toast.show(`${selectedResources.length} subscribers deleted`);
-  }, [selectedResources, submit, shopify, handleSelectionChange]);
+  }, [selectedResources, submit, shopify, clearSelection]);
 
   // Handle export
   const handleExport = useCallback(async () => {
@@ -654,7 +654,7 @@ export default function Subscribers() {
                     {stats.thisWeek}
                   </Text>
                   {stats.thisWeek > 0 && (
-                    <Badge tone="success">+{stats.thisWeek}</Badge>
+                    <Badge tone="success">{`+${stats.thisWeek}`}</Badge>
                   )}
                 </InlineStack>
               </BlockStack>
@@ -671,7 +671,7 @@ export default function Subscribers() {
                     {stats.thisMonth}
                   </Text>
                   {stats.thisMonth > 0 && (
-                    <Badge tone="info">+{stats.thisMonth}</Badge>
+                    <Badge tone="info">{`+${stats.thisMonth}`}</Badge>
                   )}
                 </InlineStack>
               </BlockStack>
@@ -750,6 +750,7 @@ export default function Subscribers() {
                   ]}
                   promotedBulkActions={promotedBulkActions}
                   loading={isSubmitting}
+                  condensed={smDown}
                 >
                   {rowMarkup}
                 </IndexTable>

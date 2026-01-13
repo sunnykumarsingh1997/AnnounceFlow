@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import type { Shop, EmailSubscriber } from "@prisma/client";
 import prisma from "../db.server";
 
@@ -346,7 +345,7 @@ export async function getSubscriberCount(shopId: string): Promise<number> {
  */
 export async function deleteAllSubscribers(shopId: string): Promise<void> {
   try {
-    const result = await prisma.emailSubscriber.deleteMany({
+    await prisma.emailSubscriber.deleteMany({
       where: {
         shopId: shopId,
       },

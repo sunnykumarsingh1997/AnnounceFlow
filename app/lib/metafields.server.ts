@@ -125,16 +125,6 @@ interface MetafieldsSetResponse {
   };
 }
 
-interface MetafieldDeleteResponse {
-  metafieldDelete: {
-    deletedId: string;
-    userErrors: Array<{
-      field: string[];
-      message: string;
-    }>;
-  };
-}
-
 interface ShopIdResponse {
   shop: {
     id: string;
@@ -908,7 +898,6 @@ export async function onPlanDowngrade(
     const enabledBars = config.bars.filter((bar) => bar.enabled);
     if (enabledBars.length > 1) {
       // Keep the first enabled bar, disable others
-      const firstEnabled = enabledBars[0];
       for (let i = 1; i < enabledBars.length; i++) {
         const bar = enabledBars[i];
         bar.enabled = false;

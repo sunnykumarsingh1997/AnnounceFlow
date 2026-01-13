@@ -106,10 +106,10 @@ export async function registerAppWebhooks(
                         `Failed to register webhook ${hook.topic}:`,
                         JSON.stringify(errors)
                     );
-                } else {
                 }
-            } else {
+                // else: duplicate webhook, already registered
             }
+            // else: no errors, success
 
         } catch (error) {
             console.error(`Error registering webhook ${hook.topic}:`, error);

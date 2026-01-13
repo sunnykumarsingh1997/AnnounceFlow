@@ -337,6 +337,11 @@
         return;
       }
 
+      // positioning fix: ensure top bars are actually at the top of the body
+      if (bar.classList.contains('announceflow-bar--top')) {
+         document.body.prepend(bar);
+      }
+
       // Show bar with CSS transition animation
       bar.classList.add('announceflow-bar--visible');
 

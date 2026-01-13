@@ -44,32 +44,6 @@ function header(text: string) {
 }
 
 /**
- * Generate test webhook with HMAC
- */
-function generateTestWebhook(topic: string, payload: object, secret: string = SHOPIFY_API_SECRET): {
-    payload: string;
-    hmac: string;
-    headers: HeadersInit;
-} {
-    const payloadString = JSON.stringify(payload);
-    const hmac = crypto
-        .createHmac("sha256", secret)
-        .update(payloadString, "utf8")
-        .digest("base64");
-
-    return {
-        payload: payloadString,
-        hmac,
-        headers: {
-            "Content-Type": "application/json",
-            "X-Shopify-Hmac-Sha256": hmac,
-            "X-Shopify-Topic": topic,
-            "X-Shopify-Shop-Domain": TEST_SHOP_DOMAIN,
-        },
-    };
-}
-
-/**
  * Send webhook request to endpoint
  */
 async function sendWebhook(

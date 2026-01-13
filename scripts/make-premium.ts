@@ -9,7 +9,7 @@ async function main() {
         process.exit(1);
     }
 
-    const shop = await prisma.shop.update({
+    await prisma.shop.update({
         where: { shopDomain },
         data: { plan: "PREMIUM" },
     });

@@ -18,7 +18,6 @@ import {
   Banner,
   Modal,
   FormLayout,
-  Badge,
   InlineGrid,
   ButtonGroup,
 } from "@shopify/polaris";
@@ -283,13 +282,6 @@ const barTypeOptions = [
   { label: "Cookie Consent", value: "cookie_consent" },
 ];
 
-// Font size options
-const fontSizeOptions = [
-  { label: "Small (12px)", value: "small" },
-  { label: "Medium (14px)", value: "medium" },
-  { label: "Large (16px)", value: "large" },
-];
-
 // URL validation helper
 const isValidUrl = (url: string): boolean => {
   if (!url) return true; // Empty is valid (optional field)
@@ -405,7 +397,6 @@ export default function CreateBar() {
 
   // Update logic for deep nested keys
   const updateContent = (field: keyof FormData['content'], value: string) => updateField("content", field, value);
-  const updateStyle = (field: keyof FormData['style'], value: any) => updateField("style", field, value);
   const updateSettings = (field: keyof FormData['settings'], value: boolean) => updateField("settings", field, value);
   const updateExtra = (field: keyof FormData['extra'], value: string) => updateField("extra", field, value);
   const updateEmail = (field: keyof FormData['email'], value: string) => updateField("email", field, value);

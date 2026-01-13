@@ -23,6 +23,7 @@ import {
   InlineGrid,
   Tooltip,
   Spinner,
+  useBreakpoints,
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import {
@@ -47,16 +48,14 @@ import type { Bar } from "../lib/types";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin, session } = await authenticate.admin(request);
-  const url = new URL(request.url);
-  const page = parseInt(url.searchParams.get("page") || "1", 10);
 
   try {
     const config = await getBarsConfig(admin);
-    
+
     // Get actual plan from database
     const shop = await getShopByDomain(session.shop);
     const isPremium = shop?.plan === "PREMIUM";
-    
+
     return json({
       bars: config.bars,
       globalSettings: config.global_settings,
@@ -199,13 +198,14 @@ const getTypeBadge = (type: string) => {
 };
 
 export default function Dashboard() {
-  const { bars, globalSettings, plan, error: loaderError } = useLoaderData<typeof loader>();
+  const { bars, plan, error: loaderError } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const shopify = useAppBridge();
   const [searchParams] = useSearchParams();
   const revalidator = useRevalidator();
   const fetcher = useFetcher<typeof action>();
   const navigation = useNavigation();
+  const { smDown } = useBreakpoints();
 
   // State
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -608,6 +608,7 @@ export default function Dashboard() {
                   resourceName={resourceName}
                   itemCount={validBars.length}
                   loading={isLoading}
+                  condensed={smDown}
                   headings={[
                     { title: "Status", alignment: "center" },
                     { title: "Name" },
@@ -828,7 +829,7 @@ export default function Dashboard() {
             </BlockStack>
             <Box paddingBlockStart="200">
               <Text as="p" variant="headingLg" fontWeight="bold">
-                $9.99/month
+                $99.00/month
               </Text>
               <Text as="p" variant="bodySm" tone="subdued">
                 7-day free trial included

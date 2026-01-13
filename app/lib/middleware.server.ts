@@ -62,7 +62,7 @@ export async function requireAuth(request: Request): Promise<AuthContext> {
         // - Session token extraction from Authorization header (Bearer token)
         // - JWT verification using the app's secret
         // - Session lookup in the database
-        const { session, admin } = await authenticate.admin(request);
+        const { session } = await authenticate.admin(request);
 
         if (!session) {
             throw new AuthError(

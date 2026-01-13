@@ -10,7 +10,6 @@ import {
 import { useState, useCallback, useEffect } from "react";
 import {
   Page,
-  Layout,
   Card,
   BlockStack,
   Text,
@@ -48,12 +47,11 @@ import {
   hasActivePremiumPlan,
   createSubscription,
 } from "../lib/billing.server";
-
-// Plan constants (client-side safe)
-const PLAN_NAME = "AnnounceFlow Premium";
-const PLAN_PRICE = 9.99;
 import { ColorPicker } from "../components";
 import type { GlobalSettings, BarPosition } from "../lib/types";
+
+// Plan constants (client-side safe)
+const PLAN_PRICE = 99.00;
 
 // Types
 interface LoaderData {
@@ -253,7 +251,6 @@ export default function Settings() {
   const [isExporting, setIsExporting] = useState(false);
 
   // Loading states
-  const isLoading = navigation.state === "loading";
   const isSubmitting = navigation.state === "submitting";
   const isSaving =
     isSubmitting && navigation.formData?.get("intent") === "save";
@@ -601,7 +598,7 @@ export default function Settings() {
 
             <BlockStack gap="300">
               <Link
-                url="https://announceflow.com/docs"
+                url="/app/help"
                 target="_blank"
                 removeUnderline
               >
@@ -614,7 +611,7 @@ export default function Settings() {
               </Link>
 
               <Link
-                url="mailto:support@announceflow.com"
+                url="mailto:support@codershive.com"
                 removeUnderline
               >
                 <InlineStack gap="100" blockAlign="center">
@@ -626,13 +623,13 @@ export default function Settings() {
               </Link>
 
               <Link
-                url="https://announceflow.com/feature-request"
+                url="https://github.com/anthropics/announceflow/issues"
                 target="_blank"
                 removeUnderline
               >
                 <InlineStack gap="100" blockAlign="center">
                   <Text as="span" variant="bodyMd">
-                    Feature Request
+                    Report an Issue
                   </Text>
                   <Icon source={ExternalIcon} />
                 </InlineStack>

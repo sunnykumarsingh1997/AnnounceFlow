@@ -3,9 +3,9 @@
  * Handles recurring application charges for the Premium plan.
  */
 
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { authenticate } from "../shopify.server";
-import { getShopByDomain, updateShopPlan } from "./db.server";
+import { getShopByDomain } from "./db.server";
 
 // Define generic AdminClient interface
 interface AdminClient {
@@ -40,19 +40,6 @@ const APP_SUBSCRIPTION_CREATE = `#graphql
       userErrors {
         field
         message
-      }
-    }
-  }
-`;
-
-const APP_SUBSCRIPTION_QUERY = `#graphql
-  mutation AppSubscriptionQuery {
-    appInstallation {
-      activeSubscriptions {
-        id
-        name
-        status
-        test
       }
     }
   }
