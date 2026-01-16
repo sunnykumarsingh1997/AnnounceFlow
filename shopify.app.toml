@@ -2,7 +2,7 @@
 
 client_id = "d75e0f39c1aa3f085ecc8e5f096d0793"
 name = "AnnounceFlow"
-application_url = "https://example.com"
+application_url = "https://announceflow-six.vercel.app"
 embedded = true
 
 [build]
@@ -22,7 +22,12 @@ api_version = "2026-04"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,read_themes"
+scopes = "write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://announceflow-six.vercel.app/auth/callback" ]
+
+[app_proxy]
+url = "https://announceflow-six.vercel.app/apps/announceflow"
+subpath = "announceflow"
+prefix = "apps"

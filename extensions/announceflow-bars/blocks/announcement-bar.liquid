@@ -312,6 +312,12 @@
           bar.style.display = 'none';
           return;
         }
+
+        // Apply positioning fix for top bars BEFORE showing
+        if (bar.classList.contains('announceflow-bar--top')) {
+          document.body.prepend(bar);
+        }
+
         initCookieConsent(bar);
         bar.classList.add('announceflow-bar--visible');
         return;

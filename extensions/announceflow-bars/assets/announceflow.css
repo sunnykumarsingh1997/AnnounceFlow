@@ -574,7 +574,13 @@
    Cookie Consent Bar Styles
    ============================================= */
 
-.announceflow-bar--cookie_consent {
+/* Cookie consent at top position - animate from top */
+.announceflow-bar--cookie_consent.announceflow-bar--top {
+  transform: translateY(-100%);
+}
+
+/* Cookie consent at bottom position - animate from bottom */
+.announceflow-bar--cookie_consent.announceflow-bar--bottom {
   transform: translateY(100%);
 }
 
